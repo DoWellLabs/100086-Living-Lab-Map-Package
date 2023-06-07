@@ -1,5 +1,5 @@
 # 100086-Living-Lab-Map-Package
-This repository serves as LivingLabScales python package and  WordPress plugins .
+This repository serves as Living-Lab-Maps python package and  WordPress plugins .
 
 ## To follow the steps you provided, please follow the instructions below:
 
