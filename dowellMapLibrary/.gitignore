@@ -1,0 +1,52 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Compiled Python files
+*.pyc
+*.pyo
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Local development environment
+venv/
+env/
+v/
+*.env
+
+# Logs
+*.log
+log/
+
+# Test environment
+.tox/
+.coverage
+htmlcov/
+
+# Documentation
+docs/_build/
+
+# Compiled files
+*.exe
+*.dll
+*.pyd
+*.pyc
+*.pyo
+
+# macOS specific files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
