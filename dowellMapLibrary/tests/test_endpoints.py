@@ -1,8 +1,8 @@
+from dowell_map import endpoints
 import pytest
-from dowellMap import endpoints 
+import json
 
 def test_verify_place_ids():
-    
     output = endpoints.verify_place_ids({
         "place_id_list": [
             "ChIJj3S0t1IbLxgRYgL-7uH0NIo",
@@ -15,14 +15,15 @@ def test_verify_place_ids():
             "IhoSGAoUChIJ0U6OoscfqokR6P225pApu2UQDQ"
         ]
     })
-
-    expected_output = {'unique_ids':['EicxMyBNYXJrZXQgU3QsIFdpbG1pbmd0b24sIE5DIDI4NDAxLCBVU0EiGhIYChQKEgnRTo6ixx-qiRHo_bbmkCm7ZRAN','IhoSGAoUChIJ0U6OoscfqokR6P225pApu2UQDQ','EicxMyBNYXJrZXQgU3QsIFdpbG1pbmd0b24sIE5DIDI4NDAxLCBVU0E']}
-    output = eval(output)
     
-    assert output == expected_output
+    expected_output = {'unique_ids':['EicxMyBNYXJrZXQgU3QsIFdpbG1pbmd0b24sIE5DIDI4NDAxLCBVU0EiGhIYChQKEgnRTo6ixx-qiRHo_bbmkCm7ZRAN','IhoSGAoUChIJ0U6OoscfqokR6P225pApu2UQDQ','EicxMyBNYXJrZXQgU3QsIFdpbG1pbmd0b24sIE5DIDI4NDAxLCBVU0E']}
+    
+    assert eval(output) == expected_output
+    
+    
 
 def test_save_place_details():
-    payload = {
+    output = endpoints.save_place_details({
         "result_dict": {
             "succesful_results": [
                 {
@@ -186,6 +187,22 @@ def test_save_place_details():
                 }
             ]
         }
-    }
+    })
     
-    assert endpoints.save_place_details(payload) == '"Saved Succesfully"'
+    assert output == '"Saved Succesfully"'
+    
+    
+
+def test_get_local_nearby_locations():
+    output = endpoints.get_local_nearby_locations({
+        "radius1":0,
+        "radius2":750,
+        "center_lat": 51.50853,
+        "center_lon":-0.12574,
+        "query_string": "school",
+        "data_type": "scraped"
+    })
+    
+    expected_output = {"data":[{"location_coord":"51.511709 , -0.1344253","hav_distances":697.3070865942444,"category":["primary_school","school","point_of_interest","establishment"],"placeId":"None","place_id":"ChIJm3x5cdMEdkgRVY_WzPEVcjA","place_name":"Soho Parish Primary School"},{"location_coord":"51.5134615 , -0.1192713","hav_distances":707.8811283949044,"category":["primary_school","school","point_of_interest","establishment"],"placeId":"None","place_id":"ChIJtVFJ6soEdkgRFa3NDt6VCiE","place_name":"St Clement Danes Church of England Primary School"},{"location_coord":"51.5129392 , -0.1250222","hav_distances":492.7914239010622,"category":["school","point_of_interest","establishment"],"placeId":"None","place_id":"ChIJ7elx8swEdkgRRxhEjmqMnfQ","place_name":"Czech School without Borders"},{"location_coord":"51.5149056 , -0.1235464","hav_distances":725.0058918771838,"category":["school","point_of_interest","establishment"],"placeId":"None","place_id":"ChIJMVEJicAFdkgRYgTnvQ2dvCw","place_name":"Dexterity Global Academy"},{"location_coord":"51.5149037 , -0.1235842","hav_distances":724.2559519547087,"category":["school","point_of_interest","establishment"],"placeId":"None","place_id":"ChIJ76tTBLkFdkgRf2XouprHvFs","place_name":"The ACE School of Success"},{"location_coord":"51.5074424 , -0.1332092","hav_distances":530.8896125020152,"category":["primary_school","school","point_of_interest","establishment"],"placeId":"None","place_id":"ChIJwebhG9EEdkgRaRxoPjHeL-s","place_name":"Cavendish Education"},{"location_coord":"51.5101173 , -0.1218421","hav_distances":322.37012142927153,"category":["school","point_of_interest","establishment"],"placeId":"None","place_id":"ChIJ__bF1nAFdkgR2sq3U_Sbbhs","place_name":"Harrow School Online"},{"location_coord":"51.510729 , -0.1264515","hav_distances":249.426589053067,"category":["school","point_of_interest","establishment"],"placeId":"None","place_id":"ChIJ3fiby80EdkgRt9ppEBur39c","place_name":"The London School of Figure Drawing"},{"location_coord":"51.5074596 , -0.1332842","hav_distances":535.5166570807756,"category":["school","point_of_interest","establishment"],"placeId":"None","place_id":"ChIJXwlqGdEEdkgRJExl2IE2Kpw","place_name":"Dukes Education"},{"location_coord":"51.5100814 , -0.1219658","hav_distances":313.0237956888915,"category":["school","point_of_interest","establishment"],"placeId":"None","place_id":"ChIJYXBKtOfleUgRDNRTa-yTFpQ","place_name":"Pearson Online Academy UK Global"},{"location_coord":"51.512019 , -0.134288","hav_distances":707.4324194024349,"category":["school","point_of_interest","establishment"],"placeId":"ChIJj41Ng9MEdkgRmtC5YiBVwEc","place_id":"None","place_name":"LEYF - Soho Nursery & Pre-School"},{"location_coord":"51.5142 , -0.1299","hav_distances":693.0932953574444,"category":["school","point_of_interest","establishment"],"placeId":"ChIJU58L08MFdkgRGZDtNcjtnGQ","place_id":"None","place_name":"Saint Martin Art School"}]}
+    
+    assert json.loads(output) == expected_output

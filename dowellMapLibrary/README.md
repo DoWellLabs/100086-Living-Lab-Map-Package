@@ -1,8 +1,6 @@
-# Project description
+# Dowell Maps Library Documentation
 
-# Dowell Maps Library
-
-This library is designed for the [Living-lab-Maps API](https://github.com/DoWellUXLab/Living-Lab-Maps). Through the respective endpoints, you can 
+This library is designed for the [Living-lab-Maps API](https://github.com/DoWellUXLab/Living-Lab-Maps). Through the respective endpoints, you can
 
 1. Verify place IDs
 2. Get place details
@@ -11,15 +9,9 @@ This library is designed for the [Living-lab-Maps API](https://github.com/DoWell
 
 ## Installation
 
-This library currently supports Python 3.10+. The [requests](https://pypi.python.org/pypi/requests) package is required. 
-
-We recommend creating a virtual environment for the Installation. Please note that the Python package is called **dowell-map**.
-
-### Installing a Released Version
+This library currently supports Python 3.6+. The [requests](https://pypi.python.org/pypi/requests) package is required. 
 
 ```
-virtualenv env
-source env/bin/activate
 pip install dowell-map
 ```
 
@@ -30,7 +22,9 @@ pip install dowell-map
 The `verify_place_ids` method takes a list of place IDs and returns the ones not yet saved in the database.
 
 ```python
-unique_ids = verify_place_ids({
+from dowell_map import endpoints
+
+unique_ids = endpoints.verify_place_ids({
     "place_id_list": [
         "ChIJj3S0t1IbLxgRYgL-7uH0NIo",
         "ChIJrTLr-GyuEmsRBfy61i59si0",
@@ -43,14 +37,17 @@ unique_ids = verify_place_ids({
     ]
 })
 
+print(unique_ids)
 ```
 
 ### Get place details
 
-The `get_place_details` method takes a list of place IDs and a dictionary of two lists: `successful_results` and `failed_results`. 
+The `get_place_details` method takes a list of place IDs and a dictionary of two lists: `successful_results` and `failed_results`.
 
 ```python
-place_details = get_place_details({
+from dowell_map import endpoints
+
+place_details = endpoints.get_place_details({
     "place_id_list":[
         "ChIJH-YvVNtjhxcRBKtosJMZigI",
         "ChIJsUIT2etjhxcRpvvxvXinMMM",
@@ -60,14 +57,19 @@ place_details = get_place_details({
         "ChIJVVVV5XomLxgRgEK1BB2YarcVMHP+VQ8"
     ]
 })
+
+print(place_details)
+
 ```
 
 ### Get local nearby locations
 
-The `get_local_nearby_locations` function takes two radii and other location details and returns nearby locations that meet the search criteria. 
+The `get_local_nearby_locations` function takes two radii and other location details and returns nearby locations that meet the search criteria.
 
 ```python
-result = get_local_nearby_locations({
+from dowell_map import endpoints
+
+nearby_locations = endpoints.get_local_nearby_locations({
     "radius1":0,
     "radius2":750,
     "center_lat": 51.50853,
@@ -75,14 +77,18 @@ result = get_local_nearby_locations({
     "query_string": "school",
     "data_type": "scraped"
 })
+
+print(nearby_locations)
 ```
 
 ### Save place details
 
-Finally, the `save_place_details` function saves place details. 
+Finally, the `save_place_details` function saves place details.
 
 ```python
-save_place_details({
+from dowell_map import endpoints
+
+output = endpoints.save_place_details({
         "result_dict": {
             "succesful_results": [
                 {
@@ -164,5 +170,6 @@ save_place_details({
             ]
         }
     })
-```
 
+print(output)
+```
